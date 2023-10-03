@@ -39,7 +39,6 @@ if (!isProduction) {
       cookie: {
         secure: isProduction,
         sameSite: isProduction && "Lax",
-        httpOnly: true
       }
     })
   );

@@ -1,8 +1,11 @@
 'use strict';
 
-// const { default: AsyncQueue } = require('sequelize/types/dialects/mssql/async-queue');
 
-// /** @type {import('sequelize-cli').Migration} */
+/** @type {import('sequelize-cli').Migration} */
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA; // define your schema in options object
+}
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -11,16 +14,22 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn('Users','firstName',{
-      type:Sequelize.STRING,
-      allowNull:false,
-
+    options.tableName = "Users";
+    await queryInterface.addColumn(options, 'firstName', {
+      type: Sequelize.STRING(30),
+      allowNull:false
     });
-    await queryInterface.addColumn('Users','lastName',{
-      type:Sequelize.STRING,
-      allowNull:false,
-
-    })
+    // await queryInterface.addColumn('Users','firstName',{
+    //   type:Sequelize.STRING(30),
+    // });
+    // await queryInterface.addColumn('Users','lastName',{
+    //   type:Sequelize.STRING,
+    //   allowNull:true,
+    // })
+    await queryInterface.addColumn(options, 'lastName', {
+      type: Sequelize.STRING(30),
+      allowNull:false
+    });
   },
 
   async down (queryInterface, Sequelize) {

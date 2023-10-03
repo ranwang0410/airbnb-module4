@@ -6,7 +6,9 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-// /** @type {import('sequelize-cli').Migration} */
+/** @type {import('sequelize-cli').Migration} */
+
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -18,19 +20,25 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-
+    // await queryInterface.bulkInsert('Users', [
       await User.bulkCreate([
         {
+          firstName:'ran',
+          lastName:'wang',
           email: 'demo@user.io',
           username: 'Demo-lition',
           hashedPassword: bcrypt.hashSync('password')
         },
         {
+          firstName:'rita',
+          lastName:'wang',
           email: 'user1@user.io',
           username: 'FakeUser1',
           hashedPassword: bcrypt.hashSync('password2')
         },
         {
+          firstName:'reno',
+          lastName:'wang',
           email: 'user2@user.io',
           username: 'FakeUser2',
           hashedPassword: bcrypt.hashSync('password3')
