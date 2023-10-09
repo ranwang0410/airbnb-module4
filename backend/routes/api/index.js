@@ -2,7 +2,11 @@
 const router = require("express").Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
-
+const spotsRouter = require('./spots.js');
+const reviewsRouter = require('./reviews.js');
+const bookingRouter = require('./bookings.js');
+const spotImageRouter = require('./spot-images.js');
+const reviewImageRouter = require('./review-images.js');
 
 // GET /api/set-token-cookie
 const { setTokenCookie } = require('../../utils/auth.js');
@@ -15,45 +19,52 @@ router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
 
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-});
+router.use('/spots',spotsRouter);
+router.use('/reviews',reviewsRouter);
+router.use('/bookings',bookingRouter);
+router.use('/spot-image',spotImageRouter);
+router.use('/review-images',reviewImageRouter);
 
 
-router.post("/test", function (req, res) {
-  res.json({ requestBody: req.body });
-});
-
-router.get('/set-token-cookie', async (_req, res) => {
-  const user = await User.findOne({
-    where: {
-      username: 'Demo-lition'
-    }
-  });
-  setTokenCookie(res, user);
-  return res.json({ user: user });
-});
-
-// GET /api/restore-user
+// router.post('/test', (req, res) => {
+//   res.json({ requestBody: req.body });
+// });
 
 
+// router.post("/test", function (req, res) {
+//   res.json({ requestBody: req.body });
+// });
 
-router.get(
-  '/restore-user',
-  (req, res) => {
-    return res.json(req.user);
-  }
-);
+// router.get('/set-token-cookie', async (_req, res) => {
+//   const user = await User.findOne({
+//     where: {
+//       username: 'Demo-lition'
+//     }
+//   });
+//   setTokenCookie(res, user);
+//   return res.json({ user: user });
+// });
+
+// // GET /api/restore-user
 
 
-// GET /api/require-auth
 
-router.get(
-  '/require-auth',
-  requireAuth,
-  (req, res) => {
-    return res.json(req.user);
-  }
-);
+// router.get(
+//   '/restore-user',
+//   (req, res) => {
+//     return res.json(req.user);
+//   }
+// );
+
+
+// // GET /api/require-auth
+
+// router.get(
+//   '/require-auth',
+//   requireAuth,
+//   (req, res) => {
+//     return res.json(req.user);
+//   }
+// );
 
 module.exports = router;
