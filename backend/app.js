@@ -14,6 +14,10 @@ const isProduction = environment === 'production';
 
 const app = express();
 
+// const spotsRouter = require('./routes/api/spots');
+// const reviewsRouter = require('./routes/api/reviews');
+
+
 app.use(morgan('dev'));
 
 app.use(cookieParser());
@@ -47,11 +51,14 @@ if (!isProduction) {
   const routes = require('./routes');
 
   app.use(routes); // Connect all the routes
+  // app.use('/api/spots', spotsRouter);
+  // app.use('/api/reviews',reviewsRouter);
+
 
   app.use((_req, _res, next) => {
     const err = new Error("The requested resource couldn't be found.");
-    err.title = "Resource Not Found";
-    err.errors = { message: "The requested resource couldn't be found." };
+    // err.title = "Resource Not Found";
+    // err.errors = { message: "The requested resource couldn't be found." };
     err.status = 404;
     next(err);
   });
@@ -78,12 +85,12 @@ app.use((err, _req, _res, next) => {
 // Error formatter
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
-  console.error(err);
+
   res.json({
-    title: err.title || 'Server Error',
+    // title: err.title || 'Server Error',
     message: err.message,
-    errors: err.errors,
-    stack: isProduction ? null : err.stack
+    // errors: err.errors,
+    // stack: isProduction ? null : err.stackhttps://file+.vscode-resource.vscode-cdn.net/Users/ranwang/Desktop/app/w12/july_2023/student_practices/W12/aiabnb/images/airbnb_dbdiagram.png?version%3D1696725182702
   });
 });
 
